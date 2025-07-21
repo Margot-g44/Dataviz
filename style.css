@@ -1,0 +1,10 @@
+#time {
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  text-shadow:
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
