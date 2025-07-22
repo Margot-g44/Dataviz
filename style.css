@@ -1,3 +1,36 @@
+body {
+  background-color:#5CAAC1 ;
+}
+
+h1 {
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  text-shadow:
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+div {
+  
+}
+
+#Prévisions {
+  background-color: #569db2;
+  display: flex;
+  text-align: center;
+  box-shadow: #000;
+  
+}
+
 #time {
   font-size: 30px;
   font-family: 'Roboto', sans-serif;
