@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  },
+  "name": "dataviz",
+  "version": "1.0.0",
+  "description": "1. Introduction\r Ce projet a pour objectif de développer une application web qui permette de visualiser des données de façon dynamique. Ce principe peut être pris de manière très large : ainsi, il peut s’agir de construire une page web affichant un graphique « classique » reflétant l’évolution de telle ou telle donnée. Mais il peut aussi s’agir de créer une animation mettant en scène des données de façon plus originale ou ludique (voir plus bas dans les idées proposées). Nous vous encourageons à vous placer dans une démarche éco-responsable, en créant une application simple, efficace et épurée.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Margot-g44/Dataviz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Margot-g44/Dataviz/issues"
+  },
+  "homepage": "https://github.com/Margot-g44/Dataviz#readme"
+}
