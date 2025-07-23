@@ -3,51 +3,62 @@ import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
 
+// Charge les variables du fichier .env
 dotenv.config();
 
-const app = express();
+// Initialisation du serveur
+const APP = express();
 const PORT = 3000;
 
-app.use(cors());
-app.use(express.static('public'));
+// Autorise les requêtes depuis d'autres domaines
+APP.use(cors());
+// Permet de servir les fichiers dans le dossier public
+APP.use(express.static('public'));
 
-app.get('/weather', async (req, res) => {
-  const city = req.query.city;
-  const apiKey = process.env.OPENWEATHER_API_KEY;
+// Permet de GET les données de l'API
+APP.get('/weather', async (req, res) => {
+  const CITY = req.query.city;
+  const API_KEY = process.env.OPENWEATHER_API_KEY;
 
-  if (!city) {
+  // Affiche des messages d'erreurs si la ville n'est pas reconnue ou si l'API n'est pas lisible ou absente
+  if (!CITY) {
     return res.status(400).json({ error: 'Ville manquante' });
   }
 
-  if (!apiKey) {
+  if (!API_KEY) {
     return res.status(500).json({ error: 'Clé API manquante' });
   }
 
   try {
-    const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=fr`;
-    const url2 = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=fr`;
+    const URL1 = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(CITY)}&appid=${API_KEY}&units=metric&lang=fr`;
+    const URL2 = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(CITY)}&appid=${API_KEY}&units=metric&lang=fr`;
 
-    const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
+    // Appelle des deux API en parallèle pour aller plus vite
+    const [RES1, RES2] = await Promise.all([fetch(URL1), fetch(URL2)]);
     
-    if (!res1.ok) {
-      const data1 = await res1.json();
-      return res.status(res1.status).json({ error: data1.message || "Erreur API météo" });
+    // Vérification des réponses
+    if (!RES1.ok) {
+      const DATA1 = await RES1.json();
+      return res.status(RES1.status).json({ error: DATA1.message || "Erreur API météo" });
     }
 
-    if (!res2.ok) {
-      const data2 = await res2.json();
-      return res.status(res2.status).json({ error: data2.message || "Erreur API météo" });
+    if (!RES2.ok) {
+      const DATA2 = await RES2.json();
+      return res.status(RES2.status).json({ error: DATA2.message || "Erreur API météo" });
     }
 
-    const [data1, data2] = await Promise.all([res1.json(), res2.json()]);
+    // Transforme les données fetch en objets JSON exploitables
+    const [DATA1, DATA2] = await Promise.all([RES1.json(), RES2.json()]);
 
-    res.json({ current: data1, forecast: data2 });
+    // Envoi de la réponse au client
+    res.json({ current: DATA1, forecast: DATA2 });
   } catch (err) {
     console.error("Erreur serveur:", err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-app.listen(PORT, () => {
+// Lancement du serveur
+APP.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
