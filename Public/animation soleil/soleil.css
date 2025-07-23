@@ -1,0 +1,17 @@
+body {
+      background-color: #0f2c52;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .sun {
+      fill: gold;
+      filter: drop-shadow(0 0 15px yellow);
+    }
+
+    .curve {
+      fill: none;
+      stroke: #ffffff88;
+      stroke-width: 4;
+    }
