@@ -16,15 +16,15 @@
 </head>
     <div id="time"></div>
 
-    <h1>Météo Actuelle</h1>
   <input type="text" id="city" placeholder="Entrez une ville" />
   <button onclick="getWeather()">Obtenir la météo</button>
 
-  <div id="resultat"></div>
-  <div id="Températures"></div>
-  <div id="Prévisions"></div>
+  <div class="container">
+    <div class="box" id="results"></div>
+    <div class="box" id="temperature"></div>
+    <div class="box" id="forecast"></div>
+  </div>
     <!-- Création d’un espace de dessin SVG de 800x400 pixels avec l’ID 'sky'.  -->
-  
     <svg id="sky" width="1300" height="400"></svg>
 </body>
 </html>

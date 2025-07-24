@@ -1,38 +1,140 @@
-body {
-  background-color:#5CAAC1 ;
-}
-
-h1 {
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  text-shadow:
-   -1px -1px 0 #000,
-    1px -1px 0 #000,
-   -1px 1px 0 #000,
-    1px 1px 0 #000;
-}
-
-input {
+.container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 0 20px;
+  flex-wrap: wrap;
 }
 
+.box {
+  flex: 1;
+  height: 170px;
+  overflow: auto; /* Permet de scroller si le contenu déborde */
 
-#Prévisions {
-  background-color: #569db2;
+  /* Fond très transparent blanc */
+  background-color: rgba(255, 255, 255, 0.05);
+
+  /* Texte blanc pour bon contraste */
+  color: #ffffff;
+
+  /* Effet de flou sur l’arrière-plan */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* Bordure subtile blanche */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* Style visuel */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+
+  /* Lisibilité du texte si image ou motif derrière */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Bande qui contient tous les éléments */
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+
+/* Boutons */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 2;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.carousel-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.carousel-button.left {
+  left: 5px;
+}
+
+.carousel-button.right {
+  right: 5px;
+}
+#forecast {
+  overflow-y: auto;
+  max-height: 100%;
+  border: 2px solid transparent;
+  border-radius: 2%;
+  /* background-color: #569db2; */
   display: flex;
   text-align: center;
   box-shadow: #000;
-  
+}
+/* Conteneur grille des prévisions */
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+  max-height: 100%;         /* important pour ne pas dépasser */
+  overflow: hidden;
+}
+
+/* Élément météo */
+.forecast-item {
+  flex: 0 0 130px;
+  margin-right: 15px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.forecast-day {
+  font-weight: 600;
+  font-size: 0.9em;
+  margin-bottom: 4px;
+  color: #a9c9ff;
+  text-transform: capitalize;
+}
+
+/* Détails internes */
+.forecast-hour {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.forecast-temp {
+  margin: 4px 0;
+}
+
+.forecast-desc {
+  font-style: italic;
+  font-size: 0.8em;
 }
 
 #time {
-  justify-content: center;
+  /* width: 100%; */
   position: absolute;
   display: flex;
-  bottom: 5px;
   z-index: 9000;
   font-size: 30px;
   font-family: 'Roboto', sans-serif;
@@ -42,4 +144,14 @@ input {
     1px -1px 0 #000,
    -1px 1px 0 #000,
     1px 1px 0 #000;
+}
+
+/* Animation de défilement */
+@keyframes scrollForecast {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
