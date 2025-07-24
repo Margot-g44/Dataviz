@@ -9,6 +9,8 @@ Ensuite aller dans le terminal et utiliser ces commandes:
 npm init -y
 npm install express dotenv node-fetch cors
 
+Pensez à rajouter votre clé API avant dans le .env que vous aurez créer en local !
+
 Puis, vous pourrez ouvrir votre serveur en écrivant dans le terminal:
 
 node server.js

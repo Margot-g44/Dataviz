@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dataviz</title>
+    
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chargement de la bibliothèque D3.js version 7 depuis le CDN officiel. -->
+    <script defer src="https://d3js.org/d3.v7.min.js"></script>
+    <script defer src="animation soleil/soleil.js"></script>
+    <link rel="stylesheet" href="animation soleil/soleil.css">
 
 </head>
     <div id="time"></div>
@@ -17,5 +23,8 @@
   <div id="resultat"></div>
   <div id="Températures"></div>
   <div id="Prévisions"></div>
+    <!-- Création d’un espace de dessin SVG de 800x400 pixels avec l’ID 'sky'.  -->
+  
+    <svg id="sky" width="800" height="400"></svg>
 </body>
 </html>
