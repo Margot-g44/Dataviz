@@ -39,9 +39,30 @@ SVG.append("path")
 const NOW = new Date();
 const CURRENT_HOUR = NOW.getHours() + NOW.getMinutes() / 60;
 
+// Ajout une condition juste après pour savoir si c’est la nuit
+const ISNIGHT = CURRENT_HOUR < 6 || CURRENT_HOUR >= 20;
+
+// Fonction qui met à jour le fond d'écran avec l'heure.
+function updateBackground(hour) {
+  const BODY = document.body;
+
+  if (hour < 6) {
+    BODY.style.backgroundColor = "#0d1b2a"; 
+  } else if (hour < 20) {
+    BODY.style.backgroundColor = "#87ceeb"; 
+  } else if (hour < 22) {
+    BODY.style.backgroundColor = "#ff6f61"; 
+  } else {
+    BODY.style.backgroundColor = "#0d1b2a"; 
+  }
+}
+
+updateBackground(CURRENT_HOUR);
+
+
 // Création d’un cercle représentant le soleil, placé au départ à minuit (heure 0)
 const SUN = SVG.append("circle")
-  .attr("class", "sun")
+  .attr("class", ISNIGHT ? "moon" : "sun")
   .attr("r", 12)
   .attr("cx", SCALE_X(0))
   .attr("cy", SCALE_Y(0));
@@ -56,6 +77,15 @@ SUN.transition()
       const HOUR = INTERPOLATE_X(t);
       const height = Math.sin((Math.PI * HOUR) / 24);
       SUN.attr("cx", SCALE_X(HOUR)).attr("cy", SCALE_Y(height));
+    
+      // Changement dynamique de classe en fonction de l'heure
+      if (HOUR < 6 || HOUR >= 20) {
+        SUN.attr("class", "moon");
+      } else {
+        SUN.attr("class", "sun");
+      }
+
+      updateBackground(HOUR);
     };
   });
 

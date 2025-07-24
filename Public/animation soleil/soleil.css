@@ -5,9 +5,24 @@ body {
   text-align: center;
 }
 
+.sky-background {
+  transition: background-color 1s ease-in-out;
+  background-color: #0d1b2a;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 .sun {
   fill: gold;
   filter: drop-shadow(0 0 15px yellow);
+}
+
+.moon {
+  fill: #ccddee;
+  stroke: #99aabb;
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 10px #99aabb);
 }
 
 .curve {
