@@ -1,17 +1,26 @@
 body {
+      z-index: 1;
       background-color: #0f2c52;
       color: white;
       font-family: sans-serif;
       text-align: center;
-    }
+}
 
-    .sun {
-      fill: gold;
+.sun {
+  z-index: 1;
+  fill: gold;
       filter: drop-shadow(0 0 15px yellow);
     }
 
     .curve {
+      z-index: 1;
       fill: none;
       stroke: #ffffff88;
       stroke-width: 4;
+    }
+
+    #sky {
+      margin-top: 12%;
+      z-index: 1;
+      position: relative;
     }

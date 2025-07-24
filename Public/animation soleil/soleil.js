@@ -3,8 +3,8 @@ const SVG = d3.select("#sky");
 
 // Définition des dimensions du canevas et des marges intérieures
 const WIDTH = 800;
-const HEIGHT = 300;
-const MARGIN = { top: 20, bottom: 30, left: 50, right: 50 };
+const HEIGHT = 250;
+const MARGIN = { top: 40, bottom: 15, left: 50, right: -400 };
 
 // Création d'une échelle horizontale : convertit l'heure (de 0 à 23) en position en pixels
 const SCALE_X = d3.scaleLinear()
@@ -60,14 +60,14 @@ SUN.transition()
   });
 
 // Ajout de repères horaires fixes sous la courbe : 0h, 6h, 12h, 18h, 23h
-const HOURS_TO_MARK = [0, 6, 12, 18, 23];
+const HOURS_TO_MARK = [0, 6, 12, 18, 24];
 SVG.selectAll("text.hour-label")
   .data(HOURS_TO_MARK)
   .enter()
   .append("text")
   .attr("class", "hour-label")
   .attr("x", d => SCALE_X(d))
-  .attr("y", HEIGHT - 5)
+  .attr("y", HEIGHT + 7)
   .attr("text-anchor", "middle")
   .attr("fill", "white")
   .text(d => `${d.toString().padStart(2, "0")}h`);
