@@ -47,13 +47,17 @@ function updateBackground(hour) {
   const BODY = document.body;
 
   if (hour < 6) {
-    BODY.style.backgroundColor = "#0d1b2a"; 
+    BODY.style.backgroundColor = "#0d1b2a"; // Nuit
+  } else if (hour < 12) {
+    BODY.style.backgroundColor = "#4682b4"; // Matin
+  } else if (hour < 18) {
+    BODY.style.backgroundColor = "#58b1d4ff"; // Après-midi
   } else if (hour < 20) {
-    BODY.style.backgroundColor = "#87ceeb"; 
+    BODY.style.backgroundColor = "#ffa07a"; // Fin d'après-midi
   } else if (hour < 22) {
-    BODY.style.backgroundColor = "#ff6f61"; 
+    BODY.style.backgroundColor = "#ff6f61"; // Crépuscule
   } else {
-    BODY.style.backgroundColor = "#0d1b2a"; 
+    BODY.style.backgroundColor = "#0d1b2a"; // Nuit
   }
 }
 

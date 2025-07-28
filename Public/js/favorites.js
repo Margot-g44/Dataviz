@@ -1,4 +1,5 @@
 import { getFavorites, saveFavorites } from './localStorage.js';
+import { getWeather } from './script.js';
 
 // Fonction qui formate la température avec un + devant si positive
 function formatTemp(temp) {
@@ -11,15 +12,15 @@ export async function displayFavorites() {
   const CONTAINER = document.getElementById('favorites-container');
   if (!CONTAINER) return;
 
-  const favorites = getFavorites();
+  const FAVORITES = getFavorites();
   CONTAINER.innerHTML = '<h3>Favoris</h3>';
 
-  if (favorites.length === 0) {
+  if (FAVORITES.length === 0) {
     CONTAINER.innerHTML += '<p>Aucun favori</p>';
     return;
   }
 
-  for (const fav of favorites) {
+  for (const fav of FAVORITES) {
     try {
       const RESPONSE = await fetch(`/weather?city=${encodeURIComponent(fav.city)}`);
       const RESULT = await RESPONSE.json();
@@ -31,13 +32,26 @@ export async function displayFavorites() {
       const TEMP = RESULT.current.main.temp;
       const DISPLAY_TEMP = formatTemp(TEMP);
 
+      const ICON = RESULT.current.weather[0].icon;
+      const ICON_URL = `https://openweathermap.org/img/wn/${ICON}@2x.png`;
+
       const CARD = document.createElement('div');
       CARD.className = 'favorite-card';
       CARD.innerHTML = `
         <strong>${fav.city}</strong> ${DISPLAY_TEMP}°C
+        <img src="${ICON_URL}" alt="Météo" width="50" height="50">
         <button data-city="${fav.city}">✕</button>
       `;
-      CARD.querySelector('button').addEventListener('click', () => removeFavorite(fav.city));
+
+      CARD.querySelector('button').addEventListener('click', (e) => {
+        e.stopPropagation(); // Évite conflit clic sur carte
+        removeFavorite(fav.city);
+      });
+
+      CARD.addEventListener('click', () => {
+        getWeather(fav.city);
+      });
+
       CONTAINER.appendChild(CARD);
     } catch (err) {
       console.error(`Erreur lors de la récupération de la météo pour ${fav.city} :`, err);

@@ -15,8 +15,8 @@ function startTime() {
   setTimeout(startTime, 1000);
 }
 
-export async function getWeather() {
-  const CITY_INPUT = document.getElementById("city").value.trim();
+export async function getWeather(cityFromClick = null) {
+  const CITY_INPUT = cityFromClick || document.getElementById("city").value.trim();
   if (!CITY_INPUT) return alert("Veuillez entrer une ville");
 
   try {
@@ -32,15 +32,13 @@ export async function getWeather() {
     const FORECAST = RESULT.forecast;
     const TEMP_DIV = document.getElementById("temperature");
 
-    // Affichage météo actuelle
     TEMP_DIV.style.display = "block";
     TEMP_DIV.innerHTML = `
       <h2>${CITY_INPUT}</h2>
       <div>Description : ${CURRENT.weather[0].description}</div>
       <div>Humidité : ${CURRENT.main.humidity}%</div>
       <div>Min : ${CURRENT.main.temp_min}°C, Max : ${CURRENT.main.temp_max}°C</div>
-      <img src="https://openweathermap.org/img/wn/${CURRENT.weather[0].icon}@2x.png"
-           alt="${CURRENT.weather[0].description}" width="50" height="50" />
+      <img src="https://openweathermap.org/img/wn/${CURRENT.weather[0].icon}@2x.png" alt="${CURRENT.weather[0].description}" width="50" height="50" />
     `;
 
     // Bouton favoris
@@ -68,8 +66,8 @@ export async function getWeather() {
       let forecastHTML = `
         <h3>Prévisions à venir</h3>
         <div class="carousel-container">
-          <button class="carousel-button left" onclick="scrollCarousel(-1)">◀</button>
-          <div class="carousel-track" id="carousel-track">
+        <button class="carousel-button left" onclick="scrollCarousel(-1)">◀</button>
+        <div class="carousel-track" id="carousel-track">
       `;
 
       FORECAST.list.slice(0, 10).forEach(item => {
@@ -95,7 +93,7 @@ export async function getWeather() {
       forecastHTML += `
           </div>
           <button class="carousel-button right" onclick="scrollCarousel(1)">▶</button>
-        </div>
+          </div>
       `;
 
       FORECAST_DIV.innerHTML = forecastHTML;
@@ -118,7 +116,7 @@ function showError(msg) {
   document.getElementById("forecast").style.display = "none";
 }
 
-// ----- Carrousel -----
+// Carrousel 
 
 let carouselPosition = 0;
 let autoScrollInterval;

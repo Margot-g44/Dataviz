@@ -33,7 +33,7 @@ body.sky-background {
 
 /* --- Favoris à gauche --- */
 #favorites-container {
-  width: 200px;
+  width: 250px;
   min-width: 150px;
   margin-right: 20px;
   background-color: rgba(255, 255, 255, 0.08);
@@ -110,6 +110,22 @@ button:hover {
 .add-fav-button {
   margin-top: 10px;
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.add-fav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ccc;
+  color: #ddd;
 }
 
 /* --- Résultat météo actuelle --- */
@@ -138,7 +154,7 @@ button:hover {
 .carousel-container {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: 70%;
   margin-top: 10px;
 }
 
