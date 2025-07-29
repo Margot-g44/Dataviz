@@ -23,31 +23,26 @@
     <link rel="stylesheet" href="animation soleil/soleil.css" />
   </head>
   <body class="sky-background">
-    <div id="time"></div>
+    <aside id="search-block">
+  <div id="time"></div>
 
+  <div class="search-container">
+    <input type="text" id="city" placeholder="Entrez une ville" />
+    <button onclick="getWeather()">Obtenir la météo</button>
+    <button id="add-fav-btn" style="display: none; margin-left: 10px">Ajouter aux favoris</button>
+  </div>
+</aside>
     <div class="main-layout">
       <aside id="favorites-container" class="favorites">
         <h3>Favoris</h3>
         <!-- Cartes favoris insérées ici -->
       </aside>
-
-      <section class="search-section">
-        <div class="search-container">
-          <input type="text" id="city" placeholder="Entrez une ville" />
-          <button onclick="getWeather()">Obtenir la météo</button>
-          <button id="add-fav-btn" style="display: none; margin-left: 10px">
-            Ajouter aux favoris
-          </button>
-        </div>
+    </div>
         <div id="results" style="display: none"></div>
         <div id="temperature" style="display: none"></div>
-      </section>
-
-      <section id="forecast" class="forecast-section" style="display: none">
+      <div id="forecast" class="forecast-section" style="display: none">
         <!-- Prévisions météo -->
-      </section>
-    </div>
-
+      </div>
     <svg id="sky" width="1300" height="400"></svg>
   </body>
 </html>

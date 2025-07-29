@@ -1,5 +1,5 @@
 import { getFavorites } from './localStorage.js';
-import { displayFavorites } from "./favorites.js";
+import { displayFavorites, addFavorite } from "./favorites.js";
 
 const animationContainer = document.createElement("div");
 const body = document.querySelector("body");
@@ -37,8 +37,6 @@ export async function getWeather(cityFromClick = null) {
 
     const CURRENT = RESULT.current;
     const FORECAST = RESULT.forecast;
-    const SUNRISE = CURRENT.sys.sunrise;
-    const SUNSET = CURRENT.sys.sunset;
     const TEMP_DIV = document.getElementById("temperature");
 
     TEMP_DIV.style.display = "block";
@@ -48,8 +46,6 @@ export async function getWeather(cityFromClick = null) {
       <div><b>Humidité</b> : ${CURRENT.main.humidity}%</div>
       <div><b>Min</b> : ${CURRENT.main.temp_min}°C, <b>Max</b> : ${CURRENT.main.temp_max}°C</div>
       <img src="https://openweathermap.org/img/wn/${CURRENT.weather[0].icon}@2x.png" alt="${CURRENT.weather[0].description}" width="50" height="50" />
-      <div><b>Heure de lever du soleil</b> : ${SUNRISE}</div>
-      <div><b>Heure de coucher du soleil</b> : ${SUNSET}</div>
       `;
 
     // Bouton favoris
@@ -212,6 +208,7 @@ function updateWeatherAnimation(weatherMain) {
   animationContainer.innerHTML = "";
   // Créer une nouvelle balise dotlottie-wc
   const newAnim = document.createElement("dotlottie-wc");
+  newAnim.className = "weather-animation";
   newAnim.setAttribute("src", animationUrl);
   newAnim.setAttribute("autoplay", "");
   newAnim.setAttribute("loop", "");
