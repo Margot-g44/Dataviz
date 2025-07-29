@@ -1,11 +1,9 @@
-import { getFavorites, saveFavorites } from './localStorage.js';
-import { displayFavorites, addFavorite } from "./favorites.js";
+import { getFavorites } from './localStorage.js';
+import { displayFavorites } from "./favorites.js";
 
 const animationContainer = document.createElement("div");
 const body = document.querySelector("body");
 body.appendChild(animationContainer);
-
-//const dotlottieEl = document.createElement(<div></div>)
 
 window.addEventListener("load", () => {
   displayFavorites();
@@ -183,8 +181,6 @@ function stopAutoScroll() {
 // 💡 Fonction pour charger l'animation Lottie selon la météo en cours
 function updateWeatherAnimation(weatherMain) {
   const container = document.querySelector("dotlottie-wc");
-
-  // if (!container) return;
 
   let animationUrl = "";
 
