@@ -93,7 +93,7 @@ SUN.transition()
     };
   });
 
-// Ajout de repères horaires fixes sous la courbe : 0h, 6h, 12h, 18h, 23h
+// Ajout de repères horaires fixes sous la courbe : 0h, 6h, 12h, 18h, 24h
 const HOURS_TO_MARK = [0, 6, 12, 18, 24];
 SVG.selectAll("text.hour-label")
   .data(HOURS_TO_MARK)

@@ -123,7 +123,7 @@ button:hover {
 }
 
 .add-fav-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.268);
   border-color: #ccc;
   color: #ddd;
 }
@@ -149,6 +149,14 @@ button:hover {
 #forecast {
   width: 100%;
   max-width: 800px;
+  align-items: center;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+#forecast h3 {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .carousel-container {
@@ -180,13 +188,13 @@ button:hover {
 
 .carousel-button {
   position: absolute;
-  top: 40%;
+  top: 45%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.3);
   border: none;
   color: white;
-  font-size: 1.5rem;
-  padding: 4px 8px;
+  font-size: 1.1rem;
+  padding: 1px 4px;
   cursor: pointer;
   z-index: 10;
 }

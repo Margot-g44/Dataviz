@@ -39,16 +39,20 @@ export async function getWeather(cityFromClick = null) {
 
     const CURRENT = RESULT.current;
     const FORECAST = RESULT.forecast;
+    const SUNRISE = CURRENT.sys.sunrise;
+    const SUNSET = CURRENT.sys.sunset;
     const TEMP_DIV = document.getElementById("temperature");
 
     TEMP_DIV.style.display = "block";
     TEMP_DIV.innerHTML = `
       <h2>${CITY_INPUT}</h2>
-      <div>Description : ${CURRENT.weather[0].description}</div>
-      <div>Humidité : ${CURRENT.main.humidity}%</div>
-      <div>Min : ${CURRENT.main.temp_min}°C, Max : ${CURRENT.main.temp_max}°C</div>
+      <div><b>Description</b> : ${CURRENT.weather[0].description}</div>
+      <div><b>Humidité</b> : ${CURRENT.main.humidity}%</div>
+      <div><b>Min</b> : ${CURRENT.main.temp_min}°C, <b>Max</b> : ${CURRENT.main.temp_max}°C</div>
       <img src="https://openweathermap.org/img/wn/${CURRENT.weather[0].icon}@2x.png" alt="${CURRENT.weather[0].description}" width="50" height="50" />
-    `;
+      <div><b>Heure de lever du soleil</b> : ${SUNRISE}</div>
+      <div><b>Heure de coucher du soleil</b> : ${SUNSET}</div>
+      `;
 
     // Bouton favoris
     const FAVORITES = getFavorites();
