@@ -105,3 +105,4 @@ SVG.selectAll("text.hour-label")
   .attr("text-anchor", "middle")
   .attr("fill", "white")
   .text(d => `${d.toString().padStart(2, "0")}h`);
+

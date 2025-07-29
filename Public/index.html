@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dataviz</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dataviz</title>
 
-  <!-- Scripts -->
-  <script type="module" src="js/script.js"></script>
-  <script defer src="https://d3js.org/d3.v7.min.js"></script>
-  <script defer src="animation soleil/soleil.js"></script>
+    <!-- Scripts -->
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="animation soleil/soleil.css" />
-</head>
-<body class="sky-background">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dataviz</title>
+    <script
+      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+      type="module"
+    ></script>
+    <!-- Chargement de la bibliothèque D3.js version 7 depuis le CDN officiel. -->
+    <script type="module" src="js/script.js"></script>
+    <script defer src="https://d3js.org/d3.v7.min.js"></script>
+    <script defer src="animation soleil/soleil.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animation soleil/soleil.css" />
+  </head>
+  <body class="sky-background">
+    <div id="time"></div>
 
-  <div id="time"></div>
+    <div class="main-layout">
+      <aside id="favorites-container" class="favorites">
+        <h3>Favoris</h3>
+        <!-- Cartes favoris insérées ici -->
+      </aside>
 
-  <div class="main-layout">
-    <aside id="favorites-container" class="favorites">
-      <h3>Favoris</h3>
-      <!-- Cartes favoris insérées ici -->
-    </aside>
+      <section class="search-section">
+        <div class="search-container">
+          <input type="text" id="city" placeholder="Entrez une ville" />
+          <button onclick="getWeather()">Obtenir la météo</button>
+          <button id="add-fav-btn" style="display: none; margin-left: 10px">
+            Ajouter aux favoris
+          </button>
+        </div>
+        <div id="results" style="display: none"></div>
+        <div id="temperature" style="display: none"></div>
+      </section>
 
-    <section class="search-section">
-      <div class="search-container">
-        <input type="text" id="city" placeholder="Entrez une ville" />
-        <button onclick="getWeather()">Obtenir la météo</button>
-        <button id="add-fav-btn" style="display:none; margin-left:10px;">Ajouter aux favoris</button>
-      </div>
-      <div id="results" style="display:none;"></div>
-      <div id="temperature" style="display:none;"></div>
-    </section>
+      <section id="forecast" class="forecast-section" style="display: none">
+        <!-- Prévisions météo -->
+      </section>
+    </div>
 
-    <section id="forecast" class="forecast-section" style="display:none;">
-      <!-- Prévisions météo -->
-    </section>
-  </div>
-
-  <svg id="sky" width="1300" height="400"></svg>
-
-</body>
+    <svg id="sky" width="1300" height="400"></svg>
+  </body>
 </html>

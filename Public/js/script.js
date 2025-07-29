@@ -1,5 +1,11 @@
 import { getFavorites, saveFavorites } from './localStorage.js';
-import { displayFavorites, addFavorite, removeFavorite } from './favorites.js';
+import { displayFavorites, addFavorite } from "./favorites.js";
+
+const animationContainer = document.createElement("div");
+const body = document.querySelector("body");
+body.appendChild(animationContainer);
+
+//const dotlottieEl = document.createElement(<div></div>)
 
 window.addEventListener("load", () => {
   displayFavorites();
@@ -16,13 +22,16 @@ function startTime() {
 }
 
 export async function getWeather(cityFromClick = null) {
-  const CITY_INPUT = cityFromClick || document.getElementById("city").value.trim();
+  const CITY_INPUT =
+    cityFromClick || document.getElementById("city").value.trim();
   if (!CITY_INPUT) return alert("Veuillez entrer une ville");
 
   try {
-    const RESPONSE = await fetch(`/weather?city=${encodeURIComponent(CITY_INPUT)}`);
+    const RESPONSE = await fetch(
+      `/weather?city=${encodeURIComponent(CITY_INPUT)}`
+    );
     const RESULT = await RESPONSE.json();
-    console.log('API response:', RESULT);
+    console.log("API response:", RESULT);
     if (!RESPONSE.ok) {
       showError(RESULT.error || RESULT.message || "Erreur inconnue");
       return;
@@ -43,7 +52,9 @@ export async function getWeather(cityFromClick = null) {
 
     // Bouton favoris
     const FAVORITES = getFavorites();
-    const IS_FAV = FAVORITES.some(f => f.city.toLowerCase() === CITY_INPUT.toLowerCase());
+    const IS_FAV = FAVORITES.some(
+      (f) => f.city.toLowerCase() === CITY_INPUT.toLowerCase()
+    );
 
     if (!IS_FAV) {
       const BTN = document.createElement("button");
@@ -70,10 +81,10 @@ export async function getWeather(cityFromClick = null) {
         <div class="carousel-track" id="carousel-track">
       `;
 
-      FORECAST.list.slice(0, 10).forEach(item => {
+      FORECAST.list.slice(0, 10).forEach((item) => {
         const DATE = new Date(item.dt_txt);
-        const DAY = DATE.toLocaleDateString('fr-FR', { weekday: 'short' });
-        const HOUR = DATE.getHours().toString().padStart(2, '0') + "h";
+        const DAY = DATE.toLocaleDateString("fr-FR", { weekday: "short" });
+        const HOUR = DATE.getHours().toString().padStart(2, "0") + "h";
         const TEMP = item.main.temp.toFixed(1);
         const DESC = item.weather[0].description;
         const ICON = item.weather[0].icon;
@@ -103,7 +114,8 @@ export async function getWeather(cityFromClick = null) {
       CONTAINER.addEventListener("mouseenter", stopAutoScroll);
       CONTAINER.addEventListener("mouseleave", startAutoScroll);
     }
-
+    updateWeatherAnimation(CURRENT.weather[0].main);
+    console.log(CURRENT.weather[0].main); // Margot :
   } catch (err) {
     showError(`Erreur réseau : ${err.message}`);
   }
@@ -116,13 +128,13 @@ function showError(msg) {
   document.getElementById("forecast").style.display = "none";
 }
 
-// Carrousel 
+// Carrousel
 
 let carouselPosition = 0;
 let autoScrollInterval;
 const AUTO_SCROLL_DELAY = 3000;
 
-window.scrollCarousel = function(direction) {
+window.scrollCarousel = function (direction) {
   stopAutoScroll();
 
   const TRACK = document.getElementById("carousel-track");
@@ -134,7 +146,10 @@ window.scrollCarousel = function(direction) {
   const TOTAL_WIDTH = TRACK.scrollWidth;
 
   carouselPosition += direction * ITEM_WIDTH;
-  carouselPosition = Math.max(0, Math.min(carouselPosition, TOTAL_WIDTH - VISIBLE_WIDTH));
+  carouselPosition = Math.max(
+    0,
+    Math.min(carouselPosition, TOTAL_WIDTH - VISIBLE_WIDTH)
+  );
   TRACK.style.transform = `translateX(-${carouselPosition}px)`;
 };
 
@@ -158,6 +173,53 @@ function startAutoScroll() {
 
 function stopAutoScroll() {
   clearInterval(autoScrollInterval);
+}
+
+// Margot : ajout de l'animation //
+// 💡 Fonction pour charger l'animation Lottie selon la météo en cours
+function updateWeatherAnimation(weatherMain) {
+  const container = document.querySelector("dotlottie-wc");
+
+  // if (!container) return;
+
+  let animationUrl = "";
+
+  switch (weatherMain.toLowerCase()) {
+    case "clear":
+      animationUrl =
+        "https://lottie.host/dece0b36-0dd4-4a50-aedd-e8a0de734761/TUNQpMUpk2.lottie";
+      break;
+    case "clouds":
+      console.log("case clouds");
+      animationUrl =
+        "https://lottie.host/df774058-177f-41ad-8c91-78e649b191ef/0atEv47f8e.lottie";
+      break;
+    case "rain":
+
+      animationUrl =
+        "https://lottie.host/3570c900-9022-4aca-a985-0598ac1fc18b/3uiRIYODdu.lottie";
+      break;
+    case "thunderstorm":
+      animationUrl =
+        "https://lottie.host/cca21819-189f-4e91-86e2-b193cb875db3/5HVDyeUyVY.lottie";
+      break;
+    default:
+      animationUrl =
+        "https://lottie.host/e5e250a9-340b-4e6c-9844-6b9168d1385f/Vnzx7o3Mv2.lottie";
+  }
+
+  // Supprimer l'ancienne animation si elle existe
+  animationContainer.innerHTML = "";
+  // Créer une nouvelle balise dotlottie-wc
+  const newAnim = document.createElement("dotlottie-wc");
+  newAnim.setAttribute("src", animationUrl);
+  newAnim.setAttribute("autoplay", "");
+  newAnim.setAttribute("loop", "");
+  newAnim.setAttribute("speed", "1");
+  newAnim.style.width = "300px";
+  newAnim.style.height = "300px";
+
+  animationContainer.appendChild(newAnim);
 }
 
 // Expose global

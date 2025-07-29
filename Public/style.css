@@ -228,3 +228,14 @@ button:hover {
     min-width: 80px;
   }
 }
+/* Margot : ajout de l'animation qui s'adapte à la météo actuelle */
+.weather-animation {
+  position: relative;
+  
+  bottom : 50%;
+  left: 50%;
+  width: 100%;
+  height: 70%;
+  pointer-events: none; /* pour que l'animation ne bloque pas les clics */
+  z-index: 9000; /* au-dessus de la courbe */
+}
