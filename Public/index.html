@@ -3,46 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataviz</title>
+
+    <title>Météo Dataviz</title>
 
     <!-- Scripts -->
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataviz</title>
-    <script
-      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
-      type="module"
-    ></script>
-    <!-- Chargement de la bibliothèque D3.js version 7 depuis le CDN officiel. -->
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
     <script type="module" src="js/script.js"></script>
     <script defer src="https://d3js.org/d3.v7.min.js"></script>
     <script defer src="animation soleil/soleil.js"></script>
+    
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="animation soleil/soleil.css" />
   </head>
   <body class="sky-background">
     <aside id="search-block">
-  <div id="time"></div>
+      <div id="time"></div>
 
-  <div class="search-container">
-    <input type="text" id="city" placeholder="Entrez une ville" />
-    <button onclick="getWeather()">Obtenir la météo</button>
-    <button id="add-fav-btn" style="display: none; margin-left: 10px">Ajouter aux favoris</button>
-  </div>
-</aside>
+      <div class="search-container">
+        <input type="text" id="city" placeholder="Entrez une ville" />
+        <button onclick="getWeather()">Obtenir la météo</button>
+        <button id="add-fav-btn" style="display: none; margin-left: 10px">Ajouter aux favoris</button>
+      </div>
+
+    </aside>
+
     <div class="main-layout">
       <aside id="favorites-container" class="favorites">
         <h3>Favoris</h3>
-        <!-- Cartes favoris insérées ici -->
       </aside>
     </div>
-        <div id="results" style="display: none"></div>
-        <div id="temperature" style="display: none"></div>
-      <div id="forecast" class="forecast-section" style="display: none">
-        <!-- Prévisions météo -->
-      </div>
+
+    <div id="favorite-error" class="error-message"></div>
+    <div id="results" style="display: none"></div>
+    <div id="temperature" style="display: none"></div>
+    <div id="forecast" class="forecast-section" style="display: none"></div>
+    
     <svg id="sky" width="1300" height="400"></svg>
   </body>
 </html>

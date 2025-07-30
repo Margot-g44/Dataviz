@@ -82,6 +82,15 @@ body.sky-background {
   cursor: pointer;
 }
 
+.error-message {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.1em;
+  color: whitesmoke;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: opacity 0.3s ease;
+}
+
 /* --- Section centrale : recherche + résultats --- */
 .search-section {
   flex-grow: 1;
@@ -112,14 +121,6 @@ body.sky-background {
   align-items: flex-start;
   gap: 0.5rem;
 }
-
-/* .search-container {
-  display: flex;
-  gap: 10px;
-  justify-content: left;
-  margin-left: 0;
-  margin-top: 2rem;
-} */
 
 #city {
   padding: 8px;

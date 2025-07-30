@@ -1,9 +1,9 @@
 import { getFavorites } from './localStorage.js';
 import { displayFavorites, addFavorite } from "./favorites.js";
 
-const animationContainer = document.createElement("div");
-const body = document.querySelector("body");
-body.appendChild(animationContainer);
+const ANIMATION_CONTAINER = document.createElement("div");
+const BODY = document.querySelector("body");
+BODY.appendChild(ANIMATION_CONTAINER);
 
 window.addEventListener("load", () => {
   displayFavorites();
@@ -19,10 +19,14 @@ function startTime() {
   setTimeout(startTime, 1000);
 }
 
+function formatCityName(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+}
+
 export async function getWeather(cityFromClick = null) {
-  const CITY_INPUT =
-    cityFromClick || document.getElementById("city").value.trim();
-  if (!CITY_INPUT) return alert("Veuillez entrer une ville");
+  const RAW_CITY_INPUT = cityFromClick || document.getElementById("city").value.trim();
+  const CITY_INPUT = formatCityName(RAW_CITY_INPUT);
+    if (!CITY_INPUT) return alert("Veuillez entrer une ville");
 
   try {
     const RESPONSE = await fetch(
@@ -113,7 +117,6 @@ export async function getWeather(cityFromClick = null) {
       CONTAINER.addEventListener("mouseleave", startAutoScroll);
     }
     updateWeatherAnimation(CURRENT.weather[0].main);
-    console.log(CURRENT.weather[0].main); // Margot :
   } catch (err) {
     showError(`Erreur réseau : ${err.message}`);
   }
@@ -176,8 +179,6 @@ function stopAutoScroll() {
 // Margot : ajout de l'animation //
 // 💡 Fonction pour charger l'animation Lottie selon la météo en cours
 function updateWeatherAnimation(weatherMain) {
-  const container = document.querySelector("dotlottie-wc");
-
   let animationUrl = "";
 
   switch (weatherMain.toLowerCase()) {
@@ -191,7 +192,6 @@ function updateWeatherAnimation(weatherMain) {
         "https://lottie.host/df774058-177f-41ad-8c91-78e649b191ef/0atEv47f8e.lottie";
       break;
     case "rain":
-
       animationUrl =
         "https://lottie.host/3570c900-9022-4aca-a985-0598ac1fc18b/3uiRIYODdu.lottie";
       break;
@@ -205,18 +205,18 @@ function updateWeatherAnimation(weatherMain) {
   }
 
   // Supprimer l'ancienne animation si elle existe
-  animationContainer.innerHTML = "";
+  ANIMATION_CONTAINER.innerHTML = "";
   // Créer une nouvelle balise dotlottie-wc
-  const newAnim = document.createElement("dotlottie-wc");
-  newAnim.className = "weather-animation";
-  newAnim.setAttribute("src", animationUrl);
-  newAnim.setAttribute("autoplay", "");
-  newAnim.setAttribute("loop", "");
-  newAnim.setAttribute("speed", "1");
-  newAnim.style.width = "300px";
-  newAnim.style.height = "300px";
+  const NEW_ANIM = document.createElement("dotlottie-wc");
+  NEW_ANIM.className = "weather-animation";
+  NEW_ANIM.setAttribute("src", animationUrl);
+  NEW_ANIM.setAttribute("autoplay", "");
+  NEW_ANIM.setAttribute("loop", "");
+  NEW_ANIM.setAttribute("speed", "1");
+  NEW_ANIM.style.width = "300px";
+  NEW_ANIM.style.height = "300px";
 
-  animationContainer.appendChild(newAnim);
+  ANIMATION_CONTAINER.appendChild(NEW_ANIM);
 }
 
 // Expose global

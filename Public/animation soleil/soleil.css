@@ -10,6 +10,7 @@ html, body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  bottom:0;
 }
 
 .sun {
@@ -31,7 +32,7 @@ html, body {
 }
 
 #sky {
-  margin-top: 10%;
-  margin-left: 15%;
-  z-index: 1;
+  bottom: 0;
+  margin-left: 7%;
+  z-index: -2000;
 }

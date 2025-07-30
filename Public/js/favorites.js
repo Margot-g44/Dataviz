@@ -20,9 +20,9 @@ export async function displayFavorites() {
     return;
   }
 
-  for (const fav of FAVORITES) {
+  for (const FAV of FAVORITES) {
     try {
-      const RESPONSE = await fetch(`/weather?city=${encodeURIComponent(fav.city)}`);
+      const RESPONSE = await fetch(`/weather?city=${encodeURIComponent(FAV.city)}`);
       const RESULT = await RESPONSE.json();
 
       if (!RESPONSE.ok || !RESULT.current) {
@@ -38,33 +38,51 @@ export async function displayFavorites() {
       const CARD = document.createElement('div');
       CARD.className = 'favorite-card';
       CARD.innerHTML = `
-        <strong>${fav.city}</strong> ${DISPLAY_TEMP}°C
+        <strong>${FAV.city}</strong> ${DISPLAY_TEMP}°C
         <img src="${ICON_URL}" alt="Météo" width="50" height="50">
-        <button data-city="${fav.city}">✕</button>
+        <button data-city="${FAV.city}">✕</button>
       `;
 
       CARD.querySelector('button').addEventListener('click', (e) => {
         e.stopPropagation(); // Évite conflit clic sur carte
-        removeFavorite(fav.city);
+        removeFavorite(FAV.city);
       });
 
       CARD.addEventListener('click', () => {
-        getWeather(fav.city);
+        getWeather(FAV.city);
       });
 
       CONTAINER.appendChild(CARD);
     } catch (err) {
-      console.error(`Erreur lors de la récupération de la météo pour ${fav.city} :`, err);
+      console.error(`Erreur lors de la récupération de la météo pour ${FAV.city} :`, err);
     }
   }
 }
 
-// Version simplifiée : on ne stocke plus la température
 export function addFavorite(city) {
-  let favorites = getFavorites();
-  if (favorites.some(fav => fav.city.toLowerCase() === city.toLowerCase())) return false;
+  const ERROR_CONTAINER = document.getElementById('favorite-error');
+  if (ERROR_CONTAINER) ERROR_CONTAINER.textContent = ''; // Réinitialise les erreurs
 
-  favorites.push({ city });
+  let favorites = getFavorites();
+
+  // Limite à 4 favoris
+  if (favorites.length >= 4) {
+    if (ERROR_CONTAINER) {
+      ERROR_CONTAINER.textContent = "Vous ne pouvez avoir que 4 favoris maximum.";
+      setTimeout(() => {
+        ERROR_CONTAINER.textContent = '';
+      }, 5000); // Disparaît après 5 secondes
+    }
+    return false;
+  }
+
+  // Formate la ville : Majuscule + minuscules
+  const FORMATTED_CITY = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+
+  // Évite les doublons
+  if (favorites.some(fav => fav.city.toLowerCase() === FORMATTED_CITY.toLowerCase())) return false;
+
+  favorites.push({ city: FORMATTED_CITY });
   saveFavorites(favorites);
   displayFavorites();
   return true;
